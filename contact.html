@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Buddha Citta Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="cyber-grid"></div>
+    <div class="particles"></div>
+    
+    <!-- Global Search Overlay -->
+    <div class="global-search-overlay">
+        <div class="global-search-container">
+            <div class="global-search-header">
+                <h3 class="global-search-title">Search Blogs</h3>
+                <button class="search-close">×</button>
+            </div>
+            <input type="text" class="global-search-input" placeholder="Search for blogs, topics, or keywords...">
+            
+            <div class="search-loading">
+                <div class="loading-spinner"></div>
+                <div class="loading-text">Searching<span class="loading-dots"></span></div>
+            </div>
+            
+            <div class="global-search-results"></div>
+        </div>
+    </div>
+    
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-brand">
+                <span class="cyber-text">BUDDHA CITTA</span>
+            </div>
+            <div class="nav-center">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="blogs.html" class="nav-link">Blogs</a></li>
+                    <li><a href="biodata.html" class="nav-link">Bio Data</a></li>
+                    <li><a href="contact.html" class="nav-link active">Contact</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                </ul>
+                <div class="search-icon" title="Search Blogs"></div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main">
+        <div class="page-container">
+            <h1 class="page-title">Establish Connection</h1>
+            
+            <div class="content-card">
+                <p style="text-align: center; font-size: 1.2rem; color: #cccccc; margin-bottom: 2rem;">
+                    Ready to collaborate on futuristic projects? Let's connect and build something extraordinary together.
+                </p>
+                
+                <form id="contactForm" action="https://formspree.io/f/your-form-id" method="POST">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="6" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn">Send Message</button>
+                </form>
+            </div>
+            
+            <div class="content-card">
+                <h3 style="color: #00ffff; margin-bottom: 1.5rem; font-family: 'Orbitron', monospace;">Alternative Contact Methods</h3>
+                
+                <div class="contact-methods">
+                    <div class="contact-method">
+                        <div class="contact-icon">📧</div>
+                        <div class="contact-info">
+                            <h4>Email</h4>
+                            <p>buddha.citta@email.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <div class="contact-icon">💬</div>
+                        <div class="contact-info">
+                            <h4>Discord</h4>
+                            <p>BuddhaCitta#0001</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <div class="contact-icon">🐙</div>
+                        <div class="contact-info">
+                            <h4>GitHub</h4>
+                            <p>github.com/buddhacitta</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <div class="contact-icon">💼</div>
+                        <div class="contact-info">
+                            <h4>LinkedIn</h4>
+                            <p>linkedin.com/in/buddhacitta</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-card">
+                <h3 style="color: #00ffff; margin-bottom: 1.5rem; font-family: 'Orbitron', monospace;">Project Collaboration</h3>
+                <p style="color: #cccccc; line-height: 1.6; margin-bottom: 1rem;">
+                    I'm always open to collaborating on innovative projects, especially those involving:
+                </p>
+                <ul style="color: #cccccc; line-height: 1.8; margin-left: 2rem;">
+                    <li>AI-powered applications and tools</li>
+                    <li>Futuristic UI/UX design implementations</li>
+                    <li>Creative web development projects</li>
+                    <li>Open-source contributions</li>
+                    <li>Image editing and processing tools</li>
+                </ul>
+                <p style="color: #cccccc; line-height: 1.6; margin-top: 1rem;">
+                    Feel free to reach out if you have an exciting project in mind or want to discuss potential collaborations!
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024 Buddha Citta. All rights reserved. | "Kiccho manussa patilabho"</p>
+            <div class="social-links">
+                <a href="#" class="social-link">GitHub</a>
+                <a href="#" class="social-link">LinkedIn</a>
+                <a href="#" class="social-link">Twitter</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    
+    <style>
+        .contact-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .contact-method:hover {
+            border-color: #00ffff;
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.2);
+        }
+        
+        .contact-icon {
+            font-size: 2rem;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 255, 255, 0.1);
+            border-radius: 50%;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+        }
+        
+        .contact-info h4 {
+            color: #00ffff;
+            margin-bottom: 0.5rem;
+            font-family: 'Orbitron', monospace;
+        }
+        
+        .contact-info p {
+            color: #cccccc;
+            margin: 0;
+        }
+    </style>
+</body>
+</html>
