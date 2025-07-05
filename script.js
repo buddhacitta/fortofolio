@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeContactForm();
     initializeAnimations();
     initializeGlobalSearch();
+    initializeShop();
 });
 
 // Global Search System
@@ -23,31 +24,61 @@ function initializeGlobalSearch() {
     
     if (!searchIcon || !searchOverlay) return;
     
-    // Blog data for search
-    const blogData = [
+    // Combined data for search (blogs + shop items)
+    const searchData = [
+        // Blog data
         {
             title: "The Future of AI in Web Development",
             excerpt: "Exploring how artificial intelligence is revolutionizing the way we build websites and applications. From automated code generation to intelligent design systems, AI is reshaping the digital landscape.",
             url: "blog/ai-web-development.html",
+            category: "Blog",
             tags: ["AI", "Web Development", "Technology", "Future", "Automation"]
         },
         {
             title: "Building Cyberpunk UI with Pure CSS",
             excerpt: "Creating stunning futuristic interfaces using only CSS animations and effects. Learn the techniques behind glowing elements, animated backgrounds, and immersive user experiences.",
             url: "blog/cyberpunk-ui-css.html",
+            category: "Blog",
             tags: ["CSS", "UI Design", "Cyberpunk", "Frontend", "Animation"]
         },
         {
             title: "Life Lessons from Code",
             excerpt: "How programming principles can guide us through life's challenges and decisions. From debugging life problems to iterating on personal growth - code as a life philosophy.",
             url: "blog/life-lessons-code.html",
+            category: "Blog",
             tags: ["Philosophy", "Programming", "Life", "Wisdom", "Growth"]
         },
         {
             title: "The maxEdit Vision",
             excerpt: "Introducing maxEdit - the next generation AI-powered image editor for creative professionals. Revolutionizing 2D and 3D media editing with intelligent automation and futuristic tools.",
             url: "blog/maxedit-vision.html",
+            category: "Blog",
             tags: ["maxEdit", "Image Editing", "AI", "Creative Tools", "Innovation"]
+        },
+        // Shop data
+        {
+            title: "Portfolio Website",
+            excerpt: "Futuristic portfolio template with cyberpunk design, responsive layout, and interactive elements. Perfect for developers and creatives.",
+            url: "shop/portfolio-website.html",
+            category: "Shop",
+            price: "$299",
+            tags: ["Portfolio", "Website", "Template", "Cyberpunk", "Responsive"]
+        },
+        {
+            title: "Brand Website",
+            excerpt: "Professional corporate website template with modern design, analytics integration, and security features for business credibility.",
+            url: "shop/brand-website.html",
+            category: "Shop",
+            price: "$599",
+            tags: ["Brand", "Corporate", "Business", "Professional", "Website"]
+        },
+        {
+            title: "E-commerce Website",
+            excerpt: "Complete online store solution with shopping cart, payment gateway, inventory management, and user accounts.",
+            url: "shop/ecommerce-website.html",
+            category: "Shop",
+            price: "$999",
+            tags: ["E-commerce", "Online Store", "Shopping", "Payment", "Business"]
         }
     ];
     
@@ -109,29 +140,31 @@ function initializeGlobalSearch() {
         setTimeout(() => {
             searchLoading.classList.remove('active');
             
-            // Filter blog posts based on search query
-            const filteredBlogs = blogData.filter(blog => 
-                blog.title.toLowerCase().includes(query) ||
-                blog.excerpt.toLowerCase().includes(query) ||
-                blog.tags.some(tag => tag.toLowerCase().includes(query))
+            // Filter data based on search query
+            const filteredResults = searchData.filter(item => 
+                item.title.toLowerCase().includes(query) ||
+                item.excerpt.toLowerCase().includes(query) ||
+                item.tags.some(tag => tag.toLowerCase().includes(query)) ||
+                (item.category && item.category.toLowerCase().includes(query))
             );
             
             // Display results with smooth animation
-            displaySearchResults(filteredBlogs, query);
+            displaySearchResults(filteredResults, query);
         }, 5000);
     }
     
-    function displaySearchResults(blogs, query) {
-        if (blogs.length === 0) {
+    function displaySearchResults(results, query) {
+        if (results.length === 0) {
             showNoResults(`No results found for "${query}"`);
             return;
         }
         
-        const resultsHTML = blogs.map((blog, index) => `
+        const resultsHTML = results.map((item, index) => `
             <div class="search-result-item" style="animation-delay: ${index * 0.1}s">
-                <div class="search-result-title">${highlightText(blog.title, query)}</div>
-                <div class="search-result-excerpt">${highlightText(blog.excerpt, query)}</div>
-                <a href="${blog.url}" class="search-result-url">${blog.url}</a>
+                <div class="search-result-title">${highlightText(item.title, query)}</div>
+                <div class="search-result-excerpt">${highlightText(item.excerpt, query)}</div>
+                <div class="search-result-category">${item.category}${item.price ? ` - ${item.price}` : ''}</div>
+                <a href="${item.url}" class="search-result-url">${item.url}</a>
             </div>
         `).join('');
         
@@ -165,6 +198,289 @@ function initializeGlobalSearch() {
         const regex = new RegExp(`(${query})`, 'gi');
         return text.replace(regex, '<span style="background: rgba(0, 255, 255, 0.3); color: #00ffff; padding: 0 2px; border-radius: 2px;">$1</span>');
     }
+}
+
+// Shop System
+function initializeShop() {
+    const shopGrid = document.getElementById('shopGrid');
+    const loadMoreBtn = document.getElementById('loadMoreBtn');
+    const shopSearch = document.getElementById('shopSearch');
+    const shopSearchResults = document.getElementById('shopSearchResults');
+    
+    if (!shopGrid) return;
+    
+    // Shop items data
+    const shopItems = [
+        {
+            id: 1,
+            title: "Portfolio Website",
+            description: "Futuristic portfolio template with cyberpunk design, responsive layout, and interactive elements.",
+            price: "$299",
+            category: "Website",
+            features: ["Responsive Design", "Contact Form", "SEO Optimized", "30 Days Support"],
+            demoUrl: "shop/portfolio-website.html",
+            tags: ["portfolio", "cyberpunk", "responsive", "template"]
+        },
+        {
+            id: 2,
+            title: "Brand Website",
+            description: "Professional corporate website template with modern design and business features.",
+            price: "$599",
+            category: "Website",
+            features: ["Multi-page", "CMS Integration", "Analytics", "60 Days Support"],
+            demoUrl: "shop/brand-website.html",
+            tags: ["brand", "corporate", "business", "professional"]
+        },
+        {
+            id: 3,
+            title: "E-commerce Website",
+            description: "Complete online store solution with shopping cart and payment integration.",
+            price: "$999",
+            category: "E-commerce",
+            features: ["Shopping Cart", "Payment Gateway", "User Accounts", "90 Days Support"],
+            demoUrl: "shop/ecommerce-website.html",
+            tags: ["ecommerce", "store", "shopping", "payment"]
+        },
+        {
+            id: 4,
+            title: "Landing Page Pro",
+            description: "High-converting landing page template with modern animations and call-to-actions.",
+            price: "$199",
+            category: "Landing Page",
+            features: ["High Conversion", "A/B Testing", "Analytics", "Mobile Optimized"],
+            demoUrl: "#",
+            tags: ["landing", "conversion", "marketing", "responsive"]
+        },
+        {
+            id: 5,
+            title: "Blog Website",
+            description: "Modern blog template with content management and social sharing features.",
+            price: "$399",
+            category: "Blog",
+            features: ["Content Management", "Social Sharing", "SEO Ready", "Comment System"],
+            demoUrl: "#",
+            tags: ["blog", "content", "social", "seo"]
+        },
+        {
+            id: 6,
+            title: "Restaurant Website",
+            description: "Elegant restaurant website with menu display and reservation system.",
+            price: "$499",
+            category: "Restaurant",
+            features: ["Menu Display", "Reservations", "Gallery", "Contact Forms"],
+            demoUrl: "#",
+            tags: ["restaurant", "menu", "reservations", "food"]
+        },
+        {
+            id: 7,
+            title: "Real Estate Website",
+            description: "Professional real estate platform with property listings and search functionality.",
+            price: "$799",
+            category: "Real Estate",
+            features: ["Property Listings", "Search Filters", "Agent Profiles", "Map Integration"],
+            demoUrl: "#",
+            tags: ["real estate", "property", "listings", "search"]
+        },
+        {
+            id: 8,
+            title: "Photography Portfolio",
+            description: "Stunning photography portfolio with gallery and client management features.",
+            price: "$349",
+            category: "Portfolio",
+            features: ["Image Gallery", "Client Area", "Booking System", "Print Shop"],
+            demoUrl: "#",
+            tags: ["photography", "gallery", "portfolio", "booking"]
+        },
+        {
+            id: 9,
+            title: "Fitness Website",
+            description: "Complete fitness website with workout plans and membership management.",
+            price: "$649",
+            category: "Fitness",
+            features: ["Workout Plans", "Membership", "Progress Tracking", "Nutrition Guide"],
+            demoUrl: "#",
+            tags: ["fitness", "workout", "health", "membership"]
+        },
+        {
+            id: 10,
+            title: "Education Platform",
+            description: "Online learning platform with course management and student tracking.",
+            price: "$899",
+            category: "Education",
+            features: ["Course Management", "Student Portal", "Progress Tracking", "Certificates"],
+            demoUrl: "#",
+            tags: ["education", "learning", "courses", "students"]
+        },
+        {
+            id: 11,
+            title: "Music Website",
+            description: "Artist website with music player, event listings, and fan engagement features.",
+            price: "$449",
+            category: "Music",
+            features: ["Music Player", "Event Calendar", "Fan Club", "Merchandise Store"],
+            demoUrl: "#",
+            tags: ["music", "artist", "events", "merchandise"]
+        },
+        {
+            id: 12,
+            title: "Tech Startup Website",
+            description: "Modern startup website with product showcase and investor information.",
+            price: "$699",
+            category: "Startup",
+            features: ["Product Showcase", "Investor Info", "Team Profiles", "Press Kit"],
+            demoUrl: "#",
+            tags: ["startup", "tech", "product", "investors"]
+        },
+        {
+            id: 13,
+            title: "Non-Profit Website",
+            description: "Charity website with donation system and volunteer management.",
+            price: "$399",
+            category: "Non-Profit",
+            features: ["Donation System", "Volunteer Portal", "Event Management", "Impact Reports"],
+            demoUrl: "#",
+            tags: ["nonprofit", "charity", "donations", "volunteers"]
+        },
+        {
+            id: 14,
+            title: "Travel Website",
+            description: "Travel agency website with booking system and destination guides.",
+            price: "$749",
+            category: "Travel",
+            features: ["Booking System", "Destination Guides", "Travel Packages", "Reviews"],
+            demoUrl: "#",
+            tags: ["travel", "booking", "destinations", "packages"]
+        },
+        {
+            id: 15,
+            title: "Consulting Website",
+            description: "Professional consulting website with service showcase and client testimonials.",
+            price: "$549",
+            category: "Consulting",
+            features: ["Service Showcase", "Client Testimonials", "Case Studies", "Consultation Booking"],
+            demoUrl: "#",
+            tags: ["consulting", "services", "testimonials", "booking"]
+        }
+    ];
+    
+    let currentPage = 0;
+    const itemsPerPage = 10;
+    let filteredItems = shopItems;
+    
+    function renderShopItems(items, startIndex = 0, append = false) {
+        const endIndex = Math.min(startIndex + itemsPerPage, items.length);
+        const itemsToRender = items.slice(startIndex, endIndex);
+        
+        const itemsHTML = itemsToRender.map((item, index) => `
+            <div class="shop-item" style="animation-delay: ${index * 0.1}s">
+                <div class="shop-item-header">
+                    <span class="shop-item-category">${item.category}</span>
+                    <span class="shop-item-price">${item.price}</span>
+                </div>
+                <h3 class="shop-item-title">${item.title}</h3>
+                <p class="shop-item-description">${item.description}</p>
+                <ul class="shop-item-features">
+                    ${item.features.map(feature => `<li>${feature}</li>`).join('')}
+                </ul>
+                <div class="shop-item-actions">
+                    <a href="${item.demoUrl}" class="shop-btn primary">
+                        <span>View Demo</span>
+                        <span>👁️</span>
+                    </a>
+                    <button class="shop-btn secondary" onclick="purchaseItem('${item.title}')">
+                        <span>Purchase</span>
+                        <span>💳</span>
+                    </button>
+                </div>
+            </div>
+        `).join('');
+        
+        if (append) {
+            shopGrid.innerHTML += itemsHTML;
+        } else {
+            shopGrid.innerHTML = itemsHTML;
+        }
+        
+        // Update load more button
+        if (endIndex >= items.length) {
+            loadMoreBtn.style.display = 'none';
+        } else {
+            loadMoreBtn.style.display = 'inline-flex';
+        }
+        
+        return endIndex;
+    }
+    
+    // Initial render
+    currentPage = renderShopItems(filteredItems);
+    
+    // Load more functionality
+    if (loadMoreBtn) {
+        loadMoreBtn.addEventListener('click', function() {
+            this.disabled = true;
+            this.innerHTML = '<span class="loading"></span> Loading...';
+            
+            setTimeout(() => {
+                currentPage = renderShopItems(filteredItems, currentPage, true);
+                this.disabled = false;
+                this.innerHTML = `
+                    <span class="btn-icon">⚡</span>
+                    <span class="btn-text">Load More Items</span>
+                    <span class="btn-arrow">↓</span>
+                `;
+            }, 1000);
+        });
+    }
+    
+    // Shop search functionality
+    if (shopSearch) {
+        shopSearch.addEventListener('input', function() {
+            const query = this.value.toLowerCase().trim();
+            
+            if (query.length === 0) {
+                filteredItems = shopItems;
+                shopSearchResults.innerHTML = '';
+                currentPage = renderShopItems(filteredItems);
+                return;
+            }
+            
+            if (query.length < 2) {
+                return;
+            }
+            
+            // Filter shop items
+            filteredItems = shopItems.filter(item => 
+                item.title.toLowerCase().includes(query) ||
+                item.description.toLowerCase().includes(query) ||
+                item.category.toLowerCase().includes(query) ||
+                item.tags.some(tag => tag.toLowerCase().includes(query)) ||
+                item.features.some(feature => feature.toLowerCase().includes(query))
+            );
+            
+            // Display filtered results
+            if (filteredItems.length === 0) {
+                shopSearchResults.innerHTML = `
+                    <div class="content-card">
+                        <p style="text-align: center; color: #cccccc;">No shop items found matching your search.</p>
+                    </div>
+                `;
+                shopGrid.innerHTML = '';
+                loadMoreBtn.style.display = 'none';
+            } else {
+                shopSearchResults.innerHTML = `
+                    <div class="content-card">
+                        <h3 style="color: #00ffff; margin-bottom: 1rem;">Search Results (${filteredItems.length})</h3>
+                    </div>
+                `;
+                currentPage = renderShopItems(filteredItems);
+            }
+        });
+    }
+}
+
+// Purchase function
+function purchaseItem(itemName) {
+    alert(`Thank you for your interest in "${itemName}"! Please contact us to complete your purchase.`);
 }
 
 // Real-time Age Calculator
@@ -425,7 +741,7 @@ function initializeAnimations() {
     }, observerOptions);
     
     // Observe all content cards
-    document.querySelectorAll('.content-card, .feature-card').forEach(card => {
+    document.querySelectorAll('.content-card, .feature-card, .shop-item').forEach(card => {
         observer.observe(card);
     });
     
@@ -433,14 +749,16 @@ function initializeAnimations() {
     const style = document.createElement('style');
     style.textContent = `
         .content-card,
-        .feature-card {
+        .feature-card,
+        .shop-item {
             opacity: 0;
             transform: translateY(30px);
             transition: all 0.6s ease;
         }
         
         .content-card.animate-in,
-        .feature-card.animate-in {
+        .feature-card.animate-in,
+        .shop-item.animate-in {
             opacity: 1;
             transform: translateY(0);
         }
